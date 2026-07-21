@@ -13,13 +13,12 @@ delay = 1000
 entrypoint = ["./tmp/main"]
 exclude_dir = ["assets", "tmp", "vendor", "testdata", "static"]
 exclude_file = []
-exclude_regex = ["_test.go"]
+exclude_regex = ["_test.go", ".*_templ.go"]
 exclude_unchanged = false
 follow_symlink = false
 full_bin = ""
 ignore_dangerous_root_dir = false
 include_dir = ["views", "styles"]
-# Added "templ" and "css" so Air watches these file extensions
 include_ext = ["go", "tpl", "tmpl", "html", "templ", "css"]
 include_file = []
 kill_delay = "0s"
@@ -27,7 +26,6 @@ log = "build-errors.log"
 poll = false
 poll_interval = 0
 post_cmd = []
-# General pre_cmd for non-Windows (Mac/Linux)
 pre_cmd = [
   "templ generate",
   "./tailwindcss -i ./styles/tailwind.css -o ./static/css/styles.css",
@@ -44,7 +42,6 @@ cmd = "go build -o ./tmp/main.exe ."
 entrypoint = ["tmp\\main.exe"]
 full_bin = ""
 post_cmd = []
-# Windows-specific pre_cmd using your local tailwindcss.exe
 pre_cmd = [
   "templ generate",
   ".\\tailwindcss.exe -i .\\styles\\tailwind.css -o .\\static\\css\\styles.css",
@@ -68,7 +65,6 @@ clean_on_exit = false
 
 [proxy]
 app_port = 8080
-# Set timeout to 5000 milliseconds (5 seconds) so the proxy waits for main.exe to spin up
 app_start_timeout = 5000
 enabled = true
 proxy_port = 8090
