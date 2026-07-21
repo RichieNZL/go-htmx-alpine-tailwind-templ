@@ -64,10 +64,13 @@ time = false
 clean_on_exit = false
 
 [proxy]
-app_port = 8080
-app_start_timeout = 5000
 enabled = true
 proxy_port = 8090
+app_port = 8443
+app_start_timeout = 5000
+# Point Air proxy to your generated certs
+cert_file = "certs/localhost+2.pem"
+key_file = "certs/localhost+2-key.pem"
 
 [screen]
 clear_on_rebuild = false

@@ -10,3 +10,8 @@ tmp/
 
 # Air log files
 *.log
+
+# Local SSL certificates
+/certs/
+*.pem
+*.key

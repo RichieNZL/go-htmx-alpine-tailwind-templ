@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"net/http"
 	"time"
 
@@ -15,6 +16,11 @@ func main() {
 
 	// 1. Add GET prefix here to match the method constraint
 	mux.Handle("GET /static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
+
+	// Direct route for /favicon.ico -> static/favicon.ico
+	mux.HandleFunc("GET /favicon.ico", func(w http.ResponseWriter, r *http.Request) {
+		http.ServeFile(w, r, "static/favicon.svg")
+	})
 
 	// 2. Main Page Route
 	mux.HandleFunc("GET /{$}", func(w http.ResponseWriter, r *http.Request) {
@@ -31,7 +37,10 @@ func main() {
 		views.TimeResponse(currentTime).Render(r.Context(), w)
 	})
 
-	fmt.Println("Server running on http://localhost:8080")
+	fmt.Println("Server running on https://localhost:8443")
+	err := http.ListenAndServeTLS(":8443", "certs/localhost+2.pem", "certs/localhost+2-key.pem", mux)
 
-	http.ListenAndServe(":8080", mux)
+	if err != nil {
+		log.Fatal(err)
+	}
 }
