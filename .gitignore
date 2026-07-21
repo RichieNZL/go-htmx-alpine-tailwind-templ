@@ -1,0 +1,12 @@
+# Standalone binaries
+*.exe
+tailwindcss.exe
+
+# Templ generated Go files
+*_templ.go
+
+# Air temporary build directory
+tmp/
+
+# Air log files
+*.log
